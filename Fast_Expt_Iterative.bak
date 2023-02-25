@@ -1,0 +1,45 @@
+#lang sicp
+#|Iterative Fast Exponentiation
+Okay, so how do we do that?
+We will need to pass down a counter, I guess?
+Not necessary?
+
+Lets try
+|#
+
+(define (even? n)
+  (= (remainder n 2 ) 0))
+
+(define (square n) (* n n))
+
+;The whole idea of a reiterative process is to have
+;it not report back to its caller
+;So I will essntially have to build this from the ground up
+;The number of steps for a linear reiterative method and
+;this iterative method is going to be constant.
+;let me try this
+(define (fast-expt b n)
+  (expt-iter b n 1))
+  
+(define (expt-iter b n product)
+  (cond ((= n 0) product)
+        ((= n 1) b)
+        ((even? n)(expt-iter (square b) (/ n 2) b))
+        (else (* b (expt-iter b (- n 1) b )))))
+;Wow, I missed something very elementary in this proof but
+;I am glad that my original instinct survived.
+;wait a minute, there is an issue.
+;I am still unable to decouple 1 and the other odd numbers
+;Done!
+;So for the iterative version I had to add another base case.
+;Why doesn't the recursive base case require this consideration?
+;Because its not saving the states. Its simpler.
+
+(fast-expt 2 0)
+(fast-expt 2 1)
+(fast-expt 2 2)
+(fast-expt 2 3)
+(fast-expt 2 4)
+(fast-expt 2 5)
+         
+  
