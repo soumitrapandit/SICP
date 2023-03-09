@@ -1,0 +1,7 @@
+#lang sicp
+;@Author - Soumitra Pandit
+#|Exercises left from Chapter 1
+1.24 - Seems too easy tbh
+1.28 - Miller Rabin Test for Primality - Super convoluted
+1.35 - Repeated Average Damp - might come back to this at some point in the future
+|#
