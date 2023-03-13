@@ -1,0 +1,39 @@
+#lang sicp
+#|Ex 2.7 Selectors and Constructors for Interval
+@Author - Soumitra Pandit
+|#
+
+(define (make-interval a b)
+  (cons (a b)))
+
+(define (lower-boubd x)
+  (car x))
+
+(define (upper-bound x)
+  (cdr x))
+
+(define (add-interval a b)
+  (make-interval (+ (lower-bound a )
+                    (lowe-bound b))
+                 (+ (upper-bound a)
+                    (upper-bound b))))
+
+(define (mul-interval a b)
+  (let ((up-a (upper-bound a))
+        (low-a (lower-bound a))
+        (low-b (lower-bound b))
+        (up-b (upper-bound b)))
+    (let ((p1 (* (up-a up-b)))
+          (p2 (* (up-a low-b)))
+          (p3 (* (low-a low-b)))
+          (p4 (* (low-a up-b))))
+      (make-interval (min (p1 p2 p3 p4))
+                     (max (p1 p2 p3 p4))))))
+
+(define (div-interval a b)
+  (mul-interval a
+                (make-interval(/ 1.0 (upper-bound b))
+                              (/ 1.0 (lower-bound b)))))
+
+;What is this fuckery? Oh, we are dealing with compound objects at this stage so this
+;is perfectly legal.

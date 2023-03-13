@@ -1,0 +1,9 @@
+#lang sicp
+#|Ex 2.1
+@Author - Soumitra Pandit
+Better (make-rat n d)|#
+
+(define (make-rat n d)
+  (if (< 0 (* n d))
+      (cons (abs n) (abs d))
+      (cons (-(abs n)) (abs d))))

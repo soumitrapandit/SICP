@@ -1,0 +1,80 @@
+#lang sicp
+#|Ex 2.3
+@Author - Soumitra Pandit
+Rectangles in a plane
+|#
+
+(define (make-point x y)
+  (cons x y))
+
+(define (x-point p)
+  (car p))
+
+(define (y-point p)
+  (cdr p))
+
+(define (make-segment p1 p2)
+  (cons p1 p2))
+
+(define (start-segment segment)
+  (car segment))
+
+(define (end-segment segment)
+  (cdr segment))
+
+(define (mid-point segment)
+  (make-point (/(+(x-point(start-segment segment))
+                  (x-point(end-segment segment)))2)
+              (/(+(y-point(start-segment segment))
+                  (y-point(end-segment segment)))2)))
+
+(define (print-point point)
+  (newline)
+  (display (x-point point))
+  (display ",")
+  (display (y-point point)))
+
+(define (square x)(* x x))
+
+(define (good-enough? x y)
+  (> 0.00001 (abs(- x y))))
+
+(define (find-fixed-point f guess)
+  (let (
+        (value-at-guess (f guess)))
+    (if (good-enough? value-at-guess guess) (f value-at-guess)
+        (find-fixed-point f value-at-guess))))
+
+(define (average x y)
+  (/ (+ x y) 2))
+
+(define (sqrt x)
+  (find-fixed-point (lambda (y) (average y (/ x y))) 1.0))
+
+(define (length-segment segment)
+  (sqrt (+(square (* (x-point(mid-point segment)) 2))
+          (square (* (y-point(mid-point segment)) 2)))))
+
+(define (make-rectangle c1 c2 c3 c4)
+  (cons(make-segment c1 c2)(make-segment c3 c4)))
+
+(define (rect-h rectangle)
+  (length-segment(car rectangle)))
+
+(define (rect-b rectangle)
+  (length-segment(cdr rectangle)))
+
+(define (rect-area rectangle)
+  (* (rect-b rectangle)(rect-h rectangle)))
+
+(define (rect-perimeter rectangle)
+  (* (+ (rect-b rectangle) (rect-h rectangle)) 2))
+
+(define p1 (make-point 3 4))
+(define p2 (make-point 58 17))
+(define p3 (make-point 34 28))
+(define p4 (make-point 8 1))
+
+(define rectangle1 (make-rectangle p1 p2 p3 p4))
+(rect-perimeter rectangle1)
+(rect-area rectangle1)
