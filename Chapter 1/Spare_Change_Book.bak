@@ -25,7 +25,6 @@ on my code and don't exactly get it
         ((= kinds-of-coins 5) 50)))
 
 (count-change 50)
-(count-change 100)
 
 #|I Learnt That
 I need better variable names

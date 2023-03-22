@@ -1,0 +1,38 @@
+#lang sicp
+#|Ex 2.22 Louis Reasoner's Square List
+@Author - Soumitra Pandit
+|#
+(define (square x)
+  (* x x))
+
+(define (square-list items)
+  (define (iter things answer)
+    (if (null? things)
+        answer
+        (iter (cdr things)
+              (cons (square (car things))
+                    ;This right here is the problem
+                    ;line. We are going to add the
+                    ;elements of the list from the left
+                    ;and thus cons will essentially add
+                    ;the leftmost squares to the right
+                    ;of the list
+                    answer))))
+  (iter items nil))
+
+(define (square-list2 items)
+  (define (iter things answer)
+    (if (null? things)
+        answer
+        (iter (cdr things)
+              (cons answer
+                    (square (car things))))))
+  ;Again, the last line is the problematic one.
+  ;We are breaking the way list are defined which
+  ;is a set of nested cons. This is not nested cons
+  ;These are nested lists.ss
+  (iter items nil))
+
+(define test-list (list 1 2 3 4 5 6))
+(square-list test-list)
+(square-list2 test-list)

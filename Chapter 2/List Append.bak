@@ -10,7 +10,6 @@
   (if (null? list-1)
       list-2
       (cons (car list-1) (append (cdr list-1) list-2))))
-
 (define (append2 list-1 list-2)
   (cons list-1 list-2))
 
