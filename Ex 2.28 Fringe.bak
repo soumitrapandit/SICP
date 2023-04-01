@@ -1,0 +1,40 @@
+#lang sicp
+#|Ex 2.28
+@Author - Soumitra Pandit
+|#
+(define (append list-1 list-2)
+  (if (null? list-1)
+      list-2
+      (cons (car list-1) (append (cdr list-1) list-2))))
+
+(define (append2 list-1 list-2)
+  (cons list-1 list-2))
+
+
+;Okay, let me think. So we need a couple of auxillary functions
+;What is the first one?
+;go through a list and check if the first element is a list itself
+;What if it is a list?
+;Then we apply the procedure to the list
+
+;I need a function that will take a nested list and put its elements in a sinlge list
+;So we are mapping over trees. And I need an efficient way to do that. Okay, let's see.
+;What are my options?
+;I'd probably have to use the dot notation for list inputs. Yes, that seems like a likely solution
+;Okay, so how do we do that?
+;Let us define the problem again. What do I want the procedure to do if it encounters a tree?
+;I want it to return its elements, right? That feels like it.
+
+;oh wait, I can just use append on the two lists
+
+         
+(define (fringe tree1)
+  (cond ((null? tree1) tree1)
+        ((not (pair? tree1)) tree1)
+        ((pair? tree1) (append (car tree1) (for-each fringe (cdr tree1))))))
+
+(define x (list (list  1 2) (list 3 4)))
+
+x
+
+(fringe x)

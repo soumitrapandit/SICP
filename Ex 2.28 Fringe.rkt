@@ -1,0 +1,52 @@
+#lang sicp
+#|Ex 2.28
+@Author - Soumitra Pandit
+|#
+(define (append list-1 list-2)
+  (if (null? list-1)
+      list-2
+      (cons (car list-1) (append (cdr list-1) list-2))))
+
+
+;Okay, let me think. So we need a couple of auxillary functions
+;What is the first one?
+;go through a list and check if the first element is a list itself
+;What if it is a list?
+;Then we apply the procedure to the list
+
+;I need a function that will take a nested list and put its elements in a sinlge list
+;So we are mapping over trees. And I need an efficient way to do that. Okay, let's see.
+;What are my options?
+;I'd probably have to use the dot notation for list inputs. Yes, that seems like a likely solution
+;Okay, so how do we do that?
+;Let us define the problem again. What do I want the procedure to do if it encounters a tree?
+;I want it to return its elements, right? That feels like it.
+
+;oh wait, I can just use append on the two lists
+;What is the mapping from
+;(cons (cons a b) (cons c d))
+;what is the mapping to
+;(cons a (cons b (cons c (cons d))
+         
+(define (fringe x)
+  (cond ((null? x) x)
+        ((not (pair? x)) (list x))
+        ;So this is quite subtle. We are doing (list x) here as
+        ;append might need to append x with another list.
+        ;We can get away with x being nil but not with x not
+        ;being a pair. This is quite instructive. As I am positive that
+        ;this is the approach I had tried out initially.
+        
+        (else (append (fringe (car x))
+                      (fringe (cdr x))))))
+
+(define x (list (list  1 2) (list 3 4)))
+
+(define a (cons 1 (cons 2 nil)))
+a
+
+
+
+x
+
+(fringe x)
