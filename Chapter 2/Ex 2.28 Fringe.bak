@@ -1,6 +1,7 @@
 #lang sicp
-#|Ex 2.28
+#|Ex 2.28 - Fringe
 @Author - Soumitra Pandit
+Given a nested list, give all the elements ordered from left to right. 
 |#
 (define (append list-1 list-2)
   (if (null? list-1)

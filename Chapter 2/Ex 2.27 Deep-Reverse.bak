@@ -1,4 +1,12 @@
 #lang sicp
+#|Deep Reverse
+Probably the best exercise I have solved till this point
+@Author - Soumitra Pandit
+Given a deep list (a list whose elements can also be lists)
+return a list with all the elements and the sub elements reversed
+Holy fuck was this cool.
+I had to use strong induction to solve this
+|#
 
 (define (last-pair list-1)
   (if (null? (cdr list-1))

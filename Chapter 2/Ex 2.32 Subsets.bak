@@ -1,0 +1,31 @@
+#lang sicp
+#|Ex 2.32 Subsets
+@Author - Soumitra Pandit
+@Date - 7th September 2023
+Given a list of numbers, create all possible subsets
+and return as a list of lists
+|#
+
+(define (subsets s)
+  (if (null? s)
+      (list nil)
+      (let ((rest (subsets (cdr s))))
+        (append rest (map car rest)))))
+
+(define list1 (list 1 2 3))
+
+(subsets list1)
+
+;So what is f?
+
+;Fuck this, how would I find the subsets?
+;Well, that's tricky
+;I think I have to think in terms of
+;Nested sets.
+;(list nil) is the universal subseet
+;If (a) , (b) are subsets then (a, b) is also a subset
+;I think that's the key rule to exploit, no?
+;can I separate the elements and then mix and match?
+;How would I do this naturally?
+;Lets assume that I do have append in my toolbox
+;And I also have map
