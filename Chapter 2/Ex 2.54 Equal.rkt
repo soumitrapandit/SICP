@@ -1,0 +1,20 @@
+#lang sicp
+#|Ex 2.54 Equal?
+@Author - Soumitra Pandit
+@Date - 16th September 2023
+|#
+
+(define (equal? seq1 seq2)
+  (if (and (null? seq1) (null? seq2))
+      true
+      (and (eq? (car seq1) (car seq2))
+           (equal? (cdr seq1) (cdr seq2)))))
+
+
+(equal? '(a b c) '(a b c))
+
+(equal? '(this is a list) '(this is a list))
+
+(equal? '(this is a list) '(this (is a) list))
+
+;There you go, something that works.
