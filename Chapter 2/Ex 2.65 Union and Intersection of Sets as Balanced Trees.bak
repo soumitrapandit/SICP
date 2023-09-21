@@ -1,0 +1,103 @@
+#lang sicp
+#|Ex 2.65 Union-set and Intersection-set in Balanced Trees
+@Author - Soumitra Pandit
+@Date - 20th September 2023
+And we're supposed to implement these in O(n).
+The procedure I have developed for converting an ordered set to
+a balanced binary tree is O(n), right?
+Let me think.
+|#
+
+;================================================
+;Implementing a Tree Structure
+;================================================
+(define (make-tree element left right)
+  (list element left right))
+
+(define (element tree)
+  (car tree))
+
+(define (left-subtree tree)
+  (cadr tree))
+
+(define (right-subtree tree)
+  (caddr tree))
+
+(define tree-1 (make-tree 3 (make-tree 2 '() '()) (make-tree 4 '() '())))
+(define tree-0 (make-tree 5 tree-1 (make-tree 6 '() '())))
+
+;------------------------------------------------------------------------
+;My implementation of Balanced Trees from ordered Lists
+
+;--------------------------------------------------------------------------------------------------
+
+;Main function:
+(define (list->tree set)
+  (cond ((null? set) '())
+        ((= (length set) 1) (make-tree (car set) '() '()))
+        ((= (length set) 2) (make-tree (car set) '() (list->tree (cdr set))))
+        (else (let ((mid (middle-of-set set)))
+                (let ((remaining-set (exclude mid set)))
+                  (let ((mid-split (split-set remaining-set)))
+                    (let ((left-half (car mid-split)) (right-half (cdr mid-split)))
+                      (make-tree mid (list->tree left-half) (list->tree right-half)))))))))
+
+;-------------------------------------------------------------------------------------------------
+
+;Accumulate:
+(define (accumulate op base-value seq)
+  (if (null? seq)
+      base-value
+      (op (car seq) (accumulate op base-value (cdr seq)))))
+
+;-------------------------------------------------------------------------------------------------
+
+;Length implemented as a special case of Accumulate
+(define (length set)
+  (accumulate (lambda (x y) (+ 1 y)) 0 set))
+
+;-------------------------------------------------------------------------------------------------
+
+;Find the Middle element of a Set
+(define (middle-of-set set)
+  (define (nth-element set n)
+    (if (= n 0)
+        (car set)
+        (nth-element (cdr set) (- n 1))))
+  (cond ((null? set) '())
+        ((= (length set) 1) (car set))
+        (else (nth-element set (- (round (/ (length set) 2)) 1)))))
+
+;--------------------------------------------------------------------------------------------------
+
+;Split a set into two halves
+(define (split-set set)
+  (define (nth-split set n result-set)
+    (cond ((null? set) '())
+          (else (if (= 0 n)
+                    (cons result-set set)
+                    (nth-split (cdr set) (- n 1) (cons (car set) result-set))))))
+   (nth-split set (round (/ (length set) 2)) '()))
+
+;---------------------------------------------------------------------------------------------------
+
+;Find the right half of a set
+(define (right-half set)
+  (cdr (split-set set)))
+
+;Find the left half of a set
+(define (left-half set)
+  (car (split-set set)))
+
+;---------------------------------------------------------------------------------------------------
+
+;Filter
+(define (filter predicate seq)
+  (cond ((null? seq) seq)
+        ((predicate (car seq))
+         (cons (car seq) (filter predicate (cdr seq))))
+        (else (filter predicate (cdr seq)))))
+
+;Exclude as a special case of filter
+(define (exclude x set)
+  (filter (lambda (y) (not (equal? x y))) set))
