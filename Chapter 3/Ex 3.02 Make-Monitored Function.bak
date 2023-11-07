@@ -1,0 +1,34 @@
+#lang sicp
+#|Ex 3.02 Make Monitored
+@Author - Soumitra Pandit
+@Date - 7th October 2023
+What is the book asking me to do?
+Its asking me to say yes to new and unknown challenges, enthusiastically.
+|#
+
+;What our function is supposed to do.
+;Takes as an input a procedure f
+;and f takes one input
+;returns a procedure that keeps track
+;of how many times it itself is called.
+
+;Okay, so this should be easy.
+
+(define (make-monitored f)
+  (let ((function-calls 0))
+    (lambda (input)
+      (cond ((eq? input 'how-many-calls) function-calls)
+            ((eq? input 'reset-count) (set! function-calls 0))
+            (else (set! function-calls (+ 1 function-calls)) (f input))))))
+
+(define (square x) (* x x))
+
+(define monitored-square (make-monitored square))
+
+(monitored-square 2)
+
+(monitored-square 'how-many-calls)
+
+;Okay, so this seems to be working.
+;Moving on.
+            
