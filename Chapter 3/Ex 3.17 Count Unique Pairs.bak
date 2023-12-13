@@ -1,0 +1,39 @@
+#lang sicp
+#|Ex 3.17 Count-Pairs Using Equality
+@Author - Soumitra Pandit
+@Date - 8th November 2023
+This is what I had suggested doing last time.
+So now that I think of it, every time, we encouter a
+unique pair, we add it to our pair list.
+Then for every list, we traverse our unique pair list and check
+if there are any existing pointers to our pair already in our list
+If not, we add the new pair and increment the couter.
+Okay, lets do this.
+|#
+
+
+(define (unique? new-pair pair-list)
+  (cond ((null? pair-list) true)
+        ((eq? new-pair (car pair-list)) false)
+        (else (unique? new-pair (cdr pair-list)))))
+
+;lets test this quickly.
+(unique? (list 'a 'b) (list (list 'a 'b)))
+(eq? (list 'a 'b) (list 'a 'b))
+(define x (list 'a 'b))
+(eq? (list 'a 'b) x)
+(eq? x x)
+
+(define (count-pairs seq pair-list)
+  (cond ((not (pair? seq)) 0)
+        ((unique? seq pair-list)
+         1
+         (append seq pair-list)
+         (+ (count-pairs (car seq) pair-list)
+            (count-pairs (cdr seq) pair-list)))
+        (else 0)))
+
+
+(define z1 (cons x x))
+
+(count-pairs z1 '())

@@ -1,0 +1,25 @@
+#lang sicp
+#|Sharing and Identity
+@Author - Soumitra Pandit
+@Date - 8th November 2023
+
+Lets test what happens when we have shared elements between two
+mutable lists.|#
+
+(define x (list 'a 'b))
+
+(define z1 (cons x x))
+
+(define z2 (cons (list 'a 'b) (list 'a 'b)))
+
+z1
+
+z2
+
+;Cons add an element to an existing pair.
+
+(set-car! x 'x)
+
+z1
+
+z2

@@ -1,0 +1,62 @@
+#lang sicp
+#|Understanding Serialization
+@Author - Soumitra Pandit
+@Date - 12th December 2023
+
+What is exactly happening with this example?
+|#
+
+(define (exchange account1 account2)
+  (let ((difference (- (account1 'balance)
+                       (account2 'balance))))
+    ((account1 'withdraw) difference)
+    ((account2 'deposit) difference)))
+
+(define (make-account-and-serializer balance)
+  (define (withdraw amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (let ((balance-serializer (make-serializer)))
+    (define (dispatch m)
+      (cond ((eq? m 'withdraw) withdraw)
+            ((eq? m 'deposit) deposit)
+            ((eq? m 'balance) balance)
+            ((eq? m 'serializer) balance-serializer)
+            (else (error "Unknown request: MAKE-ACCOUNT" m))))
+    dispatch))
+
+(define (serialized-exchange account1 account2)
+  (let ((serializer1 (account1 'serializer))
+        (serializer2 (account2 'serializer)))
+    ((serializer1 (serializer2 exchange))
+     account1
+     account2)))
+
+
+#|
+So what are we doing here?
+Lets break down the two most important functions
+(serilizer2 exchange) is going to serialize exchange.
+However, what will be the steps in the execution?
+Here is what might be happening.
+Serializer2 takes the exchange program and returns
+serialized procedure that points to the env of acc 2
+And then serializer1 takes this semi serialised procedure
+and then serializes its remaining half? What?
+What the fuck is going on?
+
+Let me think in terms of procedures and states that they are changing.
+Exchange is putting its greesy fingers into two environments.
+That itself is very interesting.
+So when it does ask for access, we want to be sure that the access is serialised.
+That makes a lot more sense.
+oh wow. Let creates a new environment
+and the serializer procedures are "imported" from their home environments.
+okay, I can move on
+|#
+
