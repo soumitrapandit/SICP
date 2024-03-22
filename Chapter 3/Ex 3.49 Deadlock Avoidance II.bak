@@ -10,7 +10,6 @@ And now I can move on.
 Anyway, Deadlock Avoidance Exceptions
 
 How about procedures where the process ids are unknown?
-Or processes that request multiple ids at the same time?
 What happens then?
 
 Streams.
