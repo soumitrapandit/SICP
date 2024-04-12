@@ -8,7 +8,6 @@ This README documents my journey through the first three chapters of *Structure 
 
 - **Language**: SICP (Scheme dialect for DrRacket)
 - **IDE**: DrRacket with SICP Language Extension
-- **Operating System**: [Your Operating System here]
 
 ## Chapter Summaries
 
@@ -57,8 +56,9 @@ This README documents my journey through the first three chapters of *Structure 
 ## Reflections
 I think that this project was really important for me as I have no formal educatioin in CS. Diving into SICP allowed me to cultivate my love for CS while simulataneously learning the fundamentals in a very robust way. Learning about lists, environmets and maps was really satisfying. 
 If I had to do it again, I most certainly would. 
+Special thanks goes to Prof. Rose Bohrer at WPI who allowed me to take this as an independent study. 
 
 ## Future Goals
 
-With the foundational knowledge acquired from the first three chapters of SICP, I plan to explore more advanced topics in computer science. My interest is particularly piqued by [specific topics of interest], and I aim to apply the learned concepts in practical projects such as [example projects].
+With the foundational knowledge acquired from the first three chapters of SICP, I plan to explore more advanced topics in computer science. My interest is particularly piqued by compilers, and I aim to apply the learned concepts in practical projects such as a Domain Specific Language.
 
