@@ -54,7 +54,7 @@ This README documents my journey through the first three chapters of *Structure 
 - Demand-driven sequences representation using streams.
 
 ## Reflections
-I think that this project was really important for me as I have no formal educatioin in CS. Diving into SICP allowed me to cultivate my love for CS while simulataneously learning the fundamentals in a very robust way. Learning about lists, environmets and maps was really satisfying. 
+I think that this project was really important for me as I have no formal educatioin in CS. Diving into SICP allowed me to cultivate my love for CS while simulataneously learning the fundamentals in a very robust way. Learning about lists, environments and maps was really satisfying. 
 If I had to do it again, I most certainly would. 
 Special thanks goes to Prof. Rose Bohrer at WPI who allowed me to take this as an independent study. 
 
