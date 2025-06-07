@@ -1,6 +1,0 @@
-#lang sicp
-#|Fermat's Little Theorem|#
-#|The theorem states that given n and a, if n is prime
-and a is a positive number less than n then a^n is congruent
-to a modulo n, whatever that means. Apparently, it means
-that a^n - a is divisible by n.|#
